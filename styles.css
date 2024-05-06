@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px; 
+}
+  
+.header-container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+  
+.logo {
+    display: flex; 
+    align-items: center; 
+}
+  
+.logo img {
+    height: 50px; 
+}
+  
+nav {
+    display: flex; 
+}
+  
+nav a {
+    display: inline-block; 
+    padding: 5px 10px; 
+    border: 1px solid #ccc; 
+    text-decoration: none; 
+    color: white;
+}
+  
+nav a:hover {
+    background-color: #444;
+}
+  
+
+section {
+    padding: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+}
+.manga-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
+}
+
+.manga-item {
+    width: 30%; 
+    margin: 1.5%; 
+    text-align: center;
+    cursor: pointer; 
+}
+
+.manga-item img {
+    width: 100%; 
+    height: auto;
+}
+
+.manga-images {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+  
+.manga-images img {
+    max-width: 100%; 
+    height: auto; 
+    margin-bottom: 10px; 
+}  
+
+.user-input {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+  
+.user-input input[type="text"] {
+    flex: 1; 
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+  
+.sort-buttons {
+    display: flex; 
+}
+  
+.sort-buttons button {
+    padding: 5px 10px;
+    background-color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.sort-buttons button:disabled {
+    background-color: #ccc; 
+    cursor: not-allowed; 
+}
+
+.sort-buttons button:hover:not(:disabled) {
+    background-color: #444; 
+}
