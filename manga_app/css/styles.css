@@ -41,9 +41,21 @@ nav a:hover {
     background-color: #444;
 }
   
-
 section {
     padding: 20px;
+}
+
+#pagination-container {
+    position: fixed; 
+    bottom: 75px;    
+    left: 50%;       /* Центрируем горизонтально */
+    transform: translateX(-50%); /* Центрируем */
+    background-color: white; /* Цвет фона для лучшей видимости */
+    border: 1px solid #ccc;  /* Граница для выделения */
+    padding: 10px;           /* Внутренние отступы */
+    border-radius: 10px;      /* Слегка закругленные углы */
+    z-index: 100;            /* Определяет, что элемент будет виден поверх других */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для эстетики */
 }
 
 button {
@@ -67,10 +79,11 @@ footer {
     bottom: 0; 
     width: 100%; 
 }
+
 .manga-grid {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap; 
-    justify-content: flex-start; 
 }
 
 .manga-item {
@@ -130,4 +143,41 @@ footer {
 
 .sort-buttons button:hover:not(:disabled) {
     background-color: #444; 
+}
+
+.registration-form {
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.registration-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.registration-form select {
+    display: block;
+    width: 101%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.registration-form button {
+    padding: 10px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.registration-form button:hover {
+    background: #45a049;
 }

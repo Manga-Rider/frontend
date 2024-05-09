@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Manga | Manga-reader</title>
-    <link rel="stylesheet" href="styles.css"> 
-    <script src="script.js" defer></script> 
+    <link rel="stylesheet" href="../css/styles.css"> 
+    <script src="../js/script.js" defer></script> 
 </head>
 <body>
     <header>
@@ -20,7 +20,7 @@
             <a href="login.html">Authorization</a>
           </nav>
         </div>
-      </header>
+    </header>
 
     <section>
         <!-- Поле поиска -->
@@ -32,13 +32,12 @@
                 <button id="reset-sorting" disabled>Reset</button> <!-- Неактивна по умолчанию -->
             </div>
         </div>
-    <div id="manga-container" class="manga-grid"> <!-- Контейнер для манги -->
-        <!-- Манга будет загружена через JavaScript -->
-    </div>
-        
-        <button id="load-more">Load more</button> 
+              
     </section>
-
+    <div id="manga-container" class="manga-grid"> <!-- Контейнер для манги -->
+            <!-- Манга будет загружена через JavaScript -->
+    </div> 
+    <div id="pagination-container" class="button"></div> <!-- Контейнер для пагинации --> 
     <footer>
         <p>&copy; 2024 Manga reader. All rights reserved.</p>
     </footer>

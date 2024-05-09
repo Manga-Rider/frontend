@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const mangaDetailsSection = document.getElementById('manga-details');
-    const addToFavoritesButton = document.getElementById('add-to-favorites'); 
-    const removeFromFavoritesButton = document.getElementById('remove-from-favorites'); 
+    const addToFavoritesButton = document.getElementById('add-to-favorites');
+    const removeFromFavoritesButton = document.getElementById('remove-from-favorites');
 
     const urlParams = new URLSearchParams(window.location.search);
     const mangaId = parseInt(urlParams.get('id'), 10);
@@ -17,29 +17,50 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const titleElement = document.createElement('h1');
-            titleElement.textContent = manga.title;            
-            
+            titleElement.textContent = manga.title;
+
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = manga.description;
+            mangaDetailsSection.appendChild(descriptionElement);
+
             const imagesContainer = document.createElement('div');
             imagesContainer.className = 'manga-images';
 
             const coverImage = document.createElement('img');
-            coverImage.src = manga.cover; 
+            coverImage.src = manga.cover_image;
             coverImage.alt = manga.title;
-            imagesContainer.appendChild(coverImage)
+            imagesContainer.appendChild(coverImage);
 
-            manga.images.forEach((image) => {
-              const imageElement = document.createElement('img');
-              imageElement.src = image; 
-              imagesContainer.appendChild(imageElement);
-            });
+            mangaDetailsSection.appendChild(titleElement);
+            mangaDetailsSection.appendChild(imagesContainer);
+            mangaDetailsSection.appendChild(descriptionElement);
+
+            const chaptersContainer = document.createElement('div');
+            chaptersContainer.className = 'manga-chapters';
+
+            if (manga.chapters && manga.chapters.length > 0) {
+                manga.chapters.forEach((chapter, index) => {
+                    const chapterLink = document.createElement('a');
+                    chapterLink.href = `chapter.html?id=${mangaId}&chapter=${index + 1}`;
+                    chapterLink.textContent = chapter.title || `Chapter ${index + 1}`;
+                    chaptersContainer.appendChild(chapterLink);
+                    chaptersContainer.appendChild(document.createElement('br'));
+                });
+            } else {
+                chaptersContainer.textContent = 'No chapters found';
+            }
+
+            mangaDetailsSection.appendChild(chaptersContainer);
 
             const authorsElement = document.createElement('div');
-            authorsElement.className = 'manga-authors'; 
-            authorsElement.textContent = `Авторы: ${manga.authors.join(', ')}`;
-
-            mangaDetailsSection.appendChild(titleElement)
-            mangaDetailsSection.appendChild(imagesContainer);
+            authorsElement.className = 'manga-authors';
+            authorsElement.textContent = `Authors: ${manga.authors.join(', ')}`;
             mangaDetailsSection.appendChild(authorsElement);
+
+            const commentsSection = document.createElement('div');
+            commentsSection.className = 'manga-comments';
+            commentsSection.textContent = 'Comments section';
+            mangaDetailsSection.appendChild(commentsSection);
 
             const token = localStorage.getItem('jwt');
             if (!token) {
@@ -58,11 +79,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const isFavorite = data.favoriteMangas?.includes(mangaId);
 
                 if (isFavorite) {
-                    addToFavoritesButton.style.display = 'none'; 
-                    removeFromFavoritesButton.style.display = 'block'; 
+                    addToFavoritesButton.style.display = 'none';
+                    removeFromFavoritesButton.style.display = 'block';
                 } else {
-                    addToFavoritesButton.style.display = 'block'; 
-                    removeFromFavoritesButton.style.display = 'none'; 
+                    addToFavoritesButton.style.display = 'block';
+                    removeFromFavoritesButton.style.display = 'none';
                 }
 
                 addToFavoritesButton.addEventListener('click', function () {
@@ -77,11 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(res => res.json())
                     .then(data => {
                         alert(data.message);
-                        addToFavoritesButton.style.display = 'none'; 
+                        addToFavoritesButton.style.display = 'none';
                         removeFromFavoritesButton.style.display = 'block';
                     })
                     .catch(() => {
-                        alert("Ошибка сервера.");
+                        alert("Server error.");
                     });
                 });
 
@@ -97,20 +118,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     .then(res => res.json())
                     .then(data => {
                         alert(data.message);
-                        removeFromFavoritesButton.style.display = 'none'; 
+                        removeFromFavoritesButton.style.display = 'none';
                         addToFavoritesButton.style.display = 'block';
                     })
                     .catch(() => {
-                        alert("Ошибка сервера.");
+                        alert("Server error.");
                     });
                 });
 
             })
             .catch(() => {
-                console.error("Ошибка получения данных пользователя.");
+                console.error("Error retrieving user data.");
             });
         })
         .catch(error => {
-            console.error("Ошибка загрузки манги:", error);
+            console.error("Error loading manga:", error);
         });
 });
