@@ -31,7 +31,7 @@ function handleLogin(event) {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error("Ошибка авторизации");
+            throw new Error("Authorisation Error");
         }
     })
     .then(user => {
@@ -39,8 +39,8 @@ function handleLogin(event) {
         window.location.href = "profile.html"; 
     })
     .catch(error => {
-        console.error("Ошибка при авторизации:", error);
-        alert("Произошла ошибка при авторизации. Пожалуйста, попробуйте снова.");
+        console.error("Authorization error:", error);
+        alert("An error occurred during authorization. Please try again.");
     });
 
     return false; 

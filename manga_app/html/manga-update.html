@@ -42,17 +42,39 @@
         <div id="uploadedImagesList">
         </div>
     </div>
-    <div id="mangaInfoContainer">
-        <h3>Your Manga</h3>
-        <h2 id="mangaTitle"></h2>
-        <img id="mangaPreviewImage" alt="Manga Preview">
-        <p id="mangaDescription"></p>
-        <p>Author: <span id="mangaAuthor"></span></p>
-        <div id="mangaImagesContainer"></div>
-        <p>Status: <span id="mangaStatus"></span></p>
-        <p>Published at: <span id="mangaPublishedAt"></span></p>
+    <div id="editMangaFormContainer">
+        <h2>Edit Manga</h2>
+        <form id="editMangaForm">
+            <label for="mangaTitle">Title:</label>
+            <input type="text" id="mangaTitle" name="mangaTitle">
+            
+            <label for="mangaDescription">Description:</label>
+            <textarea id="mangaDescription" name="mangaDescription"></textarea>
+            
+            <label for="mangaStatus">Status:</label>
+            <select id="mangaStatus" name="mangaStatus">
+                <option value="PUBLISHED">Published</option>
+                <option value="DRAFT">Draft</option>
+                <option value="ON_GOING">On Going</option>
+                <option value="FINISHED">Finished</option>
+                <option value="REMOVED">Removed</option>
+            </select>
+            
+            <button type="submit">Save Changes</button>
+        </form>
     </div>
-    
-     
+    <div id="mangaInfoContainer">
+        <h2 id="mangaTitle">Manga Title</h2>
+        <img id="mangaPreviewImage" src="" alt="Manga Preview Image">
+        <p id="mangaDescription">Manga Description</p>
+        <div id="mangaAuthorInfo">
+            <img id="mangaAuthorAvatar" src="" alt="Author Avatar">
+            <p id="mangaAuthorName">Author Name</p>
+        </div>
+        <div id="mangaImagesContainer">
+        </div>
+        <p id="mangaStatus">Manga Status</p>
+        <p id="mangaPublishedAt">Published At</p>   
+    </div>      
 </body>
 </html>

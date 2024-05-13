@@ -1,10 +1,10 @@
 let uploadedImages = []; 
+const authToken = localStorage.getItem("authToken"); 
 
 document.getElementById('updateCoverForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const mangaId = getMangaIdFromQuery(); 
-    const authToken = localStorage.getItem("authToken");
     const coverImageFile = document.getElementById('coverImageFile').files[0];
 
     const formData = new FormData();
@@ -43,7 +43,6 @@ document.getElementById('updateImagesForm').addEventListener('submit', function(
     event.preventDefault();
 
     const mangaId = getMangaIdFromQuery(); 
-    const authToken = localStorage.getItem("authToken");
 
     const formData = new FormData(); 
     uploadedImages.forEach(file => {
@@ -80,6 +79,42 @@ function getMangaIdFromQuery() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id');
 }
+
+document.getElementById('editMangaForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const mangaId = getMangaIdFromQuery();
+    const title = document.getElementById('mangaTitle').value;
+    const description = document.getElementById('mangaDescription').value;
+    const status = document.getElementById('mangaStatus').value;
+
+    const mangaData = {
+        title: title,
+        description: description,
+        status: status
+    };
+
+    fetch(`http://18.199.96.125:8080/api/v1/mangas/${mangaId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+        },
+        body: JSON.stringify(mangaData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error updating manga');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Manga successfully updated:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
 
 const uploadedImagesList = document.getElementById('uploadedImagesList');
 
@@ -124,19 +159,39 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function displayMangaInfo(mangaData) {
+function fetchAuthorInfo(authorId) {
+    fetch(`http://18.199.96.125:8080/api/v1/users/${authorId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error fetching author info');
+        }
+        return response.json();
+    })
+    .then(data => {
+        displayAuthorInfo(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
+function displayMangaInfo(mangaData) {
+    const mangaTitle = document.getElementById('mangaTitle');
     const mangaDescription = document.getElementById('mangaDescription');
     const mangaPreviewImage = document.getElementById('mangaPreviewImage');
     const mangaImagesContainer = document.getElementById('mangaImagesContainer');
-    const mangaAuthor = document.getElementById('mangaAuthor');
     const mangaStatus = document.getElementById('mangaStatus');
     const mangaPublishedAt = document.getElementById('mangaPublishedAt');
-    const titleElement = document.getElementById('mangaTitle');
 
-    titleElement.textContent = mangaData.title;
+    fetchAuthorInfo(mangaData.author)
+
+    mangaTitle.textContent = mangaData.title;
     mangaDescription.textContent = mangaData.description;
-    mangaAuthor.textContent = mangaData.author;
     mangaStatus.textContent = mangaData.status;
     mangaPublishedAt.textContent = new Date(mangaData.publishedAt).toLocaleDateString();
 
@@ -150,3 +205,10 @@ function displayMangaInfo(mangaData) {
     });
 }
 
+function displayAuthorInfo(authorData) {
+    const mangaAuthorName = document.getElementById('mangaAuthorName');
+    const mangaAuthorAvatar = document.getElementById('mangaAuthorAvatar');
+
+    mangaAuthorName.textContent = authorData.username;
+    mangaAuthorAvatar.src = authorData.image;
+}
