@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>My profile | Manga-reader</title>
-    <link rel="stylesheet" href="../css/styles.css"> 
+    <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/profile.js" defer></script> 
 </head>
 <body>
     <header>
         <div class="header-container">
           <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Logo"></a>
           </div>
           <nav>
             <a href="index.html">Home</a>
@@ -18,47 +17,56 @@
             <a href="about.html">About Us</a>
             <a href="registration.html">Registration</a>
             <a href="login.html">Authorization</a>
+            <a href="manga_list.html">My Manga List</a> 
           </nav>
         </div>
       </header>
 
-    <section id="profile-info"> 
+    <div id="profileContent">
+        <h2>Your profile</h2>
+        <img src="" id="avatar" alt="Avatar">
+        <p>Nickname: <span id="displayNickname"></span></p>
+        <p>A country: <span id="displayCountry"></span></p>
+        <p>Date of Birth: <span id="displayBirthdate"></span></p>
         
-    </section>
+        <button id="editButton">Edit data</button>
 
-    <section id="registration-login"> 
-        <div id="registration">
-            <h3>Registration</h3>
-            <form id="registration-form">
-                <label for="reg-name">Name:</label>
-                <input type="text" id="reg-name" name="name" required>
+        <button id="uploadAvatarButton">Upload avatar</button>
 
-                <label for="reg-username">Login:</label>
-                <input type="text" id="reg-username" name="username" required>
+        <button id="uploadMangaButton">Upload manga</button>
+        
+        <button onclick="handleLogout()" class="login-button">log out</button>
+    </div>
 
-                <label for="reg-password">Password:</label>
-                <input type="password" id="reg-password" name="password" required>
+    <div id="editModal" class="modal" style="display: none;"> 
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span> 
+            <h3>Edit profile details</h3>
+            <form id="editProfileForm">
+                <label for="nickname">Nickname:</label>
+                <input type="text" id="editNickname" name="nickname">
+                
+                <label for="country">A country:</label>
+                <select name="country" >
+                    <option value="" disabled selected>Choose the country</option>
+                    <option value="UA">Україна</option>
+                    <option value="BY">Беларусь</option>
+                    <option value="KZ">Қазақстан</option>
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Deutschland</option>
+                    <option value="FR">France</option>
+                </select> 
 
-                <button type="submit">Sign up</button>
+                <label for="birthdate">Date of Birth:</label>
+                <input type="date" id="editBirthdate" name="birthdate">
+                
+                <button type="submit" class="login-button">Save changes</button>
             </form>
         </div>
-
-        <div id="login">
-            <h3>Authorization</h3>
-            <form id="login-form">
-                <label for="login-username">Login:</label>
-                <input type="text" id="login-username" name="username" required>
-
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" name="password" required>
-
-                <button type="submit">Sign in</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Manga reader. All rights reserved.</p>
-    </footer>
+    </div>
+    <input type="file" id="avatarInput" accept="image/jpeg" style="display: none;">
 </body>
 </html>

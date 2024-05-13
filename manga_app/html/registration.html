@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>My profile | Manga-reader</title>
     <link rel="stylesheet" href="../css/styles.css"> 
+    <script src="../js/registration.js" defer></script> 
 </head>
 <body>
     <header>
         <div class="header-container">
           <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Logo"></a>
           </div>
           <nav>
             <a href="index.html">Home</a>
@@ -20,34 +20,32 @@
           </nav>
         </div>
       </header>
-    <div class="registration-form">
+      <div class="registration-form">
         <h2>Registration</h2>
-        <form id="registrationForm" onsubmit="return handleRegistration()">
+        <form id="registrationForm">
             <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="nickname" placeholder="Nickname" required>
+            <input type="text" name="username" placeholder="Nickname" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="confirmPassword" placeholder="Confirm the password" required>
             <select name="country" required>
                 <option value="" disabled selected>Choose the country</option>
-                <option value="UA">Україна </option>
-                <option value="BY">Беларусь </option>
-                <option value="KZ">Қазақстан </option>
-                <option value="US">United States </option>
-                <option value="UK">United Kingdom </option>
-                <option value="CA">Canada </option>
-                <option value="AU">Australia </option>
-                <option value="DE">Deutschland </option>
-                <option value="FR">France </option>
+                <option value="UA">Україна</option>
+                <option value="BY">Беларусь</option>
+                <option value="KZ">Қазақстан</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Deutschland</option>
+                <option value="FR">France</option>
             </select>
             <input type="date" name="birthdate" required>
             <button type="submit">Register</button>
         </form>
         <div id="userExists" style="display: none;">
-            <h3>User already exists</h3>
-            <p>A user with this email address is already registered.</p>
+            <h3>Try a different nickname or log in</h3>
             <a href="login.html">Go to authorization</a>
         </div>
     </div>
-    <script src="../js/registration.js" defer></script> 
 </body>
 </html>

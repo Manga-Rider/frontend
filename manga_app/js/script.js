@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const mangaElement = document.createElement('div');
             mangaElement.className = 'manga-item';
             mangaElement.innerHTML = `
-                <img src="${manga.cover}" alt="${manga.title}">
+                <img src="${manga.image}" alt="${manga.title}">
                 <p>${manga.title}</p>
             `;
 
             mangaElement.addEventListener('click', function () {
-                const mangaId = manga.id;
+                const mangaId = manga.mangaId;
                 window.open(`manga-details.html?id=${mangaId}`, '_blank');
             });
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         resetData(); 
 
-            sortFavoritesButton.addEventListener('click', function () {
+            /*sortFavoritesButton.addEventListener('click', function () {
                 const token = localStorage.getItem('jwt');
                 if (!token) {
                     alert("Please log in to view your favorites.");
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(() => {
                     alert("Server error.");
                 });
-            });        
+            });        */
             
             sortAlphabeticallyButton.addEventListener('click', function () {
                 displayedMangaData.sort((a, b) => a.title.localeCompare(b.title)); 

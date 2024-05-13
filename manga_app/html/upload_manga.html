@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Manga | Manga-reader</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/upload_manga.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="manga.html">Manga</a>
+                <a href="about.html">About Us</a>
+                <a href="registration.html">Registration</a>
+                <a href="login.html">Authorization</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="uploadMangaFormContainer">
+        <h2>Upload Manga</h2>
+        <form id="uploadMangaForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title">
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea>            
+           
+            <button type="submit">Upload</button>
+        </form>
+
+        <div id="errorMessageContainer" style="display: none;">
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+</body>
+</html>

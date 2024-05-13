@@ -48,14 +48,14 @@ section {
 #pagination-container {
     position: fixed; 
     bottom: 75px;    
-    left: 50%;       /* Центрируем горизонтально */
-    transform: translateX(-50%); /* Центрируем */
-    background-color: white; /* Цвет фона для лучшей видимости */
-    border: 1px solid #ccc;  /* Граница для выделения */
-    padding: 10px;           /* Внутренние отступы */
-    border-radius: 10px;      /* Слегка закругленные углы */
-    z-index: 100;            /* Определяет, что элемент будет виден поверх других */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для эстетики */
+    left: 50%;      
+    transform: translateX(-50%); 
+    background-color: white; 
+    border: 1px solid #ccc;  
+    padding: 10px;         
+    border-radius: 10px;      
+    z-index: 100;            
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 button {
@@ -180,4 +180,70 @@ footer {
 
 .registration-form button:hover {
     background: #45a049;
+}
+
+.login-form {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.login-form input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.close{
+    cursor: pointer;
+}
+
+.login-button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #45a049;
+}
+
+#userInfo {
+    text-align: center;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+#loginError {
+    color: red;
+    text-align: center;
+}
+
+#mangaInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px; 
+}
+
+#mangaImagesContainer img {
+    display: block;
+    max-width: 300px; 
+    margin: 10px auto; 
 }

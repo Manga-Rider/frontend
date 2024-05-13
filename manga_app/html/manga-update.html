@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Manga | Manga-reader</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/manga_update.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="manga.html">Manga</a>
+                <a href="about.html">About Us</a>
+                <a href="registration.html">Registration</a>
+                <a href="login.html">Authorization</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="updateCoverFormContainer">
+        <h2>Update Manga Cover, should be downloaded only once and first</h2>
+        <form id="updateCoverForm">
+            <label for="coverImageFile">Cover Image:</label>
+            <input type="file" id="coverImageFile" accept="image/jpeg" name="coverImageFile">
+            
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <div id="updateImagesFormContainer">
+        <h2>Update Manga Images</h2>
+        <form id="updateImagesForm">
+            <label for="mangaImageFiles">Manga Images:</label>
+            <input type="file" id="mangaImageFiles" accept="image/jpeg" name="mangaImageFiles">
+            <button type="submit">Upload</button>
+        </form>
+        
+        <div id="uploadedImagesList">
+        </div>
+    </div>
+    <div id="mangaInfoContainer">
+        <h3>Your Manga</h3>
+        <h2 id="mangaTitle"></h2>
+        <img id="mangaPreviewImage" alt="Manga Preview">
+        <p id="mangaDescription"></p>
+        <p>Author: <span id="mangaAuthor"></span></p>
+        <div id="mangaImagesContainer"></div>
+        <p>Status: <span id="mangaStatus"></span></p>
+        <p>Published at: <span id="mangaPublishedAt"></span></p>
+    </div>
+    
+     
+</body>
+</html>

@@ -1,105 +1,174 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const profileInfoSection = document.getElementById('profile-info'); 
-    const registrationLoginSection = document.getElementById('registration-login'); 
+document.addEventListener("DOMContentLoaded", function() {
+    const authToken = localStorage.getItem("authToken");
 
-    const token = localStorage.getItem('jwt');
-    let currentUser = null;
-
-    if (token) {
-        fetch('http://localhost:5000/verify', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.username) {
-                currentUser = data;
-                showProfile(currentUser);
-            } else {
-                localStorage.removeItem('jwt');
-                registrationLoginSection.style.display = 'block';
-            }
-        })
-        .catch(() => {
-            localStorage.removeItem('jwt');
-            registrationLoginSection.style.display = 'block';
-        });
-    } else {
-        registrationLoginSection.style.display = 'block';
+    if (!authToken) {
+        window.location.href = "login.html";
+        return;
     }
 
-    function showProfile(user) {
-        profileInfoSection.innerHTML = `
-            <h2>Welcome back, ${user.name}!</h2>
-            <p>Login: ${user.username}</p>
-            <button id="logout">Exit</button>
-        `;
+    fetchUserData(authToken);
 
-        const logoutButton = document.getElementById('logout');
-        logoutButton.addEventListener('click', function () {
-            localStorage.removeItem('jwt');
-            location.reload();
-        });
+    document.getElementById("editButton").onclick = function() {
+        document.getElementById("editModal").style.display = "block"; 
+    };
 
-        registrationLoginSection.style.display = 'none';
-    }
+    document.getElementById("closeModal").onclick = function() {
+        document.getElementById("editModal").style.display = "none"; 
+    };
 
-    const registrationForm = document.getElementById('registration-form');
-    registrationForm.addEventListener('submit', function (event) {
-        event.preventDefault();
+    document.getElementById("editProfileForm").onsubmit = handleProfileUpdate; 
+    document.getElementById("uploadAvatarButton").onclick = function() {
+        document.getElementById("avatarInput").click();
+    };
 
-        const name = document.getElementById('reg-name').value;
-        const username = document.getElementById('reg-username').value;
-        const password = document.getElementById('reg-password').value;
+    document.getElementById("uploadMangaButton").onclick = function() {
+        window.location.href = "upload_manga.html"; 
+    };    
 
-        fetch('http://localhost:5000/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, username, password })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('jwt', data.token);
-                showProfile({ name, username });
-            } else {
-                alert("Registration error.");
-            }
-        })
-        .catch(() => {
-            alert("Server error.");
-        });
-    });
-
-    const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('login-username').value;
-        const password = document.getElementById('login-password').value;
-
-        fetch('http://localhost:5000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('jwt', data.token);
-                showProfile({ username });
-            } else {
-                alert("Incorrect login or password.");
-            }
-        })
-        .catch(() => {
-            alert("Server error");
-        });
-    });
+    document.getElementById("avatarInput").addEventListener("change", handleAvatarUpload);
 });
+
+function fetchUserData(authToken) {
+    fetch('http://18.199.96.125:8080/api/v1/users/personal/account', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Error while retrieving user data');
+        }
+    })
+    .then(data => {
+        document.getElementById("avatar").src = data.image;
+        document.getElementById("displayNickname").textContent = data.username;
+        document.getElementById("displayCountry").textContent = data.location;
+        document.getElementById("displayBirthdate").textContent = data.birthday;
+    })
+    .catch(error => {
+        console.error("Error while retrieving user data:", error);
+    });
+}
+
+function handleProfileUpdate(event) {
+    event.preventDefault(); 
+
+    const authToken = localStorage.getItem("authToken");
+    const form = document.getElementById("editProfileForm");
+    const formData = new FormData(form);
+    const rawBirthdate = formData.get("birthdate"); 
+    const dateParts = rawBirthdate.split('-'); 
+    const formattedBirthdate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+    const data = {};
+
+    if (formData.get("nickname")) {
+        data.username = formData.get("nickname");
+    }
+
+    if (formData.get("country")) {
+        data.location = formData.get("country");
+    }
+
+    if (formData.get("birthdate")) {
+        data.birthday = formattedBirthdate;
+    }
+
+    fetch('http://18.199.96.125:8080/api/v1/users/personal/account', {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) 
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Profile data has been successfully updated!");
+        } else {
+            throw new Error("Error updating profile data");
+        }
+    })
+    .catch(error => {
+        console.error("Error updating profile data:", error);
+        alert("An error occurred while updating your profile information.");
+    });
+
+    document.getElementById("editModal").style.display = "none";
+    fetchUserData(authToken);
+    return false; 
+}
+
+function handleLogout() {
+    localStorage.removeItem("authToken"); 
+    window.location.href = "login.html"; 
+}
+
+function handleAvatarUpload() {
+    const fileInput = document.getElementById("avatarInput");
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert("Choose File.");
+        return;
+    }
+
+    if (!file.type.match('image/jpeg')) {
+        alert("Please select a JPEG file.");
+        return;
+    }
+
+    const authToken = localStorage.getItem("authToken");
+
+    fetch('http://18.199.96.125:8080/api/v1/users/personal/account', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Error while retrieving user data');
+        }
+    })
+    .then(data => {
+        if (data.image) {
+            alert("You already have an avatar. You cannot download it again.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('http://18.199.96.125:8080/api/v1/users/personal/account/images', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            },
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("The avatar has been successfully uploaded.");
+            } else {
+                throw new Error("Error loading avatar.");
+            }
+        })
+        .catch(error => {
+            console.error("Error loading avatar:", error);
+            alert("There was an error loading your avatar.");
+        });
+    })
+    .catch(error => {
+        console.error("Error while retrieving user data:", error);
+        alert("An error occurred while checking for an avatar.");
+    });
+
+    fetchUserData(authToken);
+}
