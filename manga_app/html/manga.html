@@ -10,7 +10,6 @@
     <header>
         <div class="header-container">
           <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Логотип"></a>
           </div>
           <nav>
             <a href="index.html">Home</a>
@@ -22,22 +21,11 @@
         </div>
     </header>
 
-    <section>
-        <!-- Поле поиска -->
-        <div class="user-input">
-            <input type="text" id="search-manga" placeholder="Search manga">
-            <div class="sort-buttons">
-                <button id="sort-favorites">Favorites</button>
-                <button id="sort-alphabetically">Alphabetically</button>
-                <button id="reset-sorting" disabled>Reset</button> <!-- Неактивна по умолчанию -->
-            </div>
-        </div>
-              
-    </section>
-    <div id="manga-container" class="manga-grid"> <!-- Контейнер для манги -->
-            <!-- Манга будет загружена через JavaScript -->
-    </div> 
-    <div id="pagination-container" class="button"></div> <!-- Контейнер для пагинации --> 
+    <div class="container">
+        <h1>Manga List</h1>
+        <div class="manga-grid" id="mangaGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
     <footer>
         <p>&copy; 2024 Manga reader. All rights reserved.</p>
     </footer>
