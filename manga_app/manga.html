@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manga details</title>
-    <link rel="stylesheet" href="../css/styles.css"> 
-    <script src="../js/manga-details.js" defer></script> 
+    <title>Manga | Manga-reader</title>
+    <link rel="stylesheet" href="/css/styles.css"> 
+    <script src="/js/script.js" defer></script> 
 </head>
 <body>
     <header>
         <div class="header-container">
           <div class="logo">
-            <a href="index.html"><img src="logo.png" alt="Логотип"></a>
           </div>
           <nav>
             <a href="index.html">Home</a>
@@ -20,18 +19,13 @@
             <a href="login.html">Authorization</a>
           </nav>
         </div>
-      </header>
+    </header>
 
-    <section id="manga-details"> 
-        
-    </section>
-
-   
-    <div>
-        <button id="add-to-favorites" style="display: none;">Add to favorites</button>
-        <button id="remove-from-favorites" style="display: none;">Remove from favorites</button>
+    <div class="container">
+        <h1>Manga List</h1>
+        <div class="manga-grid" id="mangaGrid"></div>
+        <div class="pagination" id="pagination"></div>
     </div>
-
     <footer>
         <p>&copy; 2024 Manga reader. All rights reserved.</p>
     </footer>
